@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorry - Broken Heart Animation</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+    }
+
+    .heart-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .heart {
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      transform: scale(1.1);
+      animation: pulse 2s infinite;
+    }
+
+    .heart::before, .heart::after {
+      content: '';
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: #f44336;
+      position: absolute;
+      top: 0;
+    }
+
+    .heart::before {
+      left: 0;
+      transform: rotate(-45deg);
+      transform-origin: 100% 100%;
+    }
+
+    .heart::after {
+      right: 0;
+      transform: rotate(45deg);
+      transform-origin: 0 100%;
+    }
+
+    .crack {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: #fff;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      opacity: 0.7;
+      animation: crack-animation 2s infinite;
+    }
+
+    .heal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: #fff;
+      transform: translate(-50%, -50%) rotate(45deg);
+      opacity: 0.7;
+      display: none;
+    }
+
+    .heart-container:hover .heal {
+      display: block;
+      animation: heal-animation 3s forwards;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1.1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes crack-animation {
+      0%, 100% {
+        width: 2px;
+        opacity: 0.7;
+      }
+      50% {
+        width: 5px;
+        opacity: 0.9;
+      }
+    }
+
+    @keyframes heal-animation {
+      0% {
+        transform: scale(1) rotate(45deg);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: #333;
+      text-align: center;
+      font-weight: normal;
+      opacity: 0.8;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #888;
+      text-align: center;
+      opacity: 0.7;
+      margin-top: 10px;
+    }
+
+    /* Media query for larger screens */
+    @media (min-width: 768px) {
+      .heart-container {
+        width: 200px;
+        height: 200px;
+      }
+
+      .heart {
+        width: 200px;
+        height: 200px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="heart-container">
+    <div class="heart"></div>
+    <div class="crack"></div>
+    <div class="heal"></div>
+  </div>
+
+  <h1>Sorry...</h1>
+  <p>Sometimes, we all break things, but there's always a chance to heal.</p>
+
+  <script>
+    const heart = document.querySelector('.heart');
+    const crack = document.querySelector('.crack');
+    const heal = document.querySelector('.heal');
+
+    // Event listener for hover effect
+    heart.addEventListener('mouseenter', () => {
+      crack.style.animation = 'none';  // Stop crack animation when healing
+      setTimeout(() => {
+        crack.style.animation = 'crack-animation 2s infinite';  // Restart crack effect
+      }, 3000);
+    });
+  </script>
+  
+</body>
+</html>
